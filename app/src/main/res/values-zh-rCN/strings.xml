@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">设计模式示例</string>
+    <string name="factory_method">工厂方法</string>
+    <string name="custom_vehicle">车辆定制</string>
+</resources>
