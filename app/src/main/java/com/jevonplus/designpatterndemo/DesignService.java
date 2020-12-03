@@ -7,6 +7,8 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.jevonplus.designpatterndemo.AbstractFactory.AbstractFactory;
+import com.jevonplus.designpatterndemo.AbstractFactory.FactoryCollect;
 import com.jevonplus.designpatterndemo.factorymethod.Vehicle;
 import com.jevonplus.designpatterndemo.factorymethod.VehicleFactory;
 
@@ -36,5 +38,9 @@ public class DesignService extends Service {
     public Vehicle customVehicleToFactory(int type) {
         mVehicleFactory = new VehicleFactory();
         return mVehicleFactory.customVehicle(type);
+    }
+
+    public AbstractFactory getFactory(int factoryType) {
+        return FactoryCollect.getFactory(factoryType);
     }
 }
