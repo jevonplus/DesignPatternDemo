@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">DesignPatternDemo</string>
-    <string name="factory_method">fatory method</string>
-    <string name="custom_vehicle">vehicle custom</string>
-    <string name="abstract_factory">abstract factory</string>
-</resources>
