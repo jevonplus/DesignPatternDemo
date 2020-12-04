@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/factory_method_title_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/factory_method_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/factory_method" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/custom_type_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="1"
+                android:digits="123"
+                android:ems="10"
+                android:hint="请输入车辆类型：1 汽车，2 卡车，3 客场"
+                android:inputType="number" />
+            <Button
+                android:id="@+id/custom_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_vehicle">
+            </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/abstract_factory_title_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/abstract_factory_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/abstract_factory" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+            android:id="@+id/vehicle_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLength="1"
+            android:digits="123"
+            android:ems="10"
+            android:hint="请输入车辆类型"
+            android:inputType="number" />
+            <EditText
+                android:id="@+id/color_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="1"
+                android:digits="123"
+                android:ems="10"
+                android:hint="请输入颜色类型：1 红色，2 白色，3 蓝色"
+                android:inputType="number" />
+            <Button
+                android:id="@+id/absfactory_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_vehicle"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/singleton_title_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/singleton_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/singleton" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/singleton_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="1"
+                android:digits="12"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="厂号" />
+            <EditText
+                android:id="@+id/singleton_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="姓名" />
+            <EditText
+                android:id="@+id/singleton_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="2"
+                android:digits="1234567890"
+                android:ems="10"
+                android:hint="年龄"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/singleton_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="性别" />
+
+            <Button
+                android:id="@+id/singleton_appoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="任命" />
+            <Button
+                android:id="@+id/singleton_query"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="查询" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
