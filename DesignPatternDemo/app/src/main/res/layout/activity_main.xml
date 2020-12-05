@@ -148,5 +148,72 @@
                 android:layout_weight="1"
                 android:text="查询" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/builder_title_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/builder_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/builder" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/builder_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="1"
+                android:digits="12"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="厂号" />
+            <EditText
+                android:id="@+id/builder_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="姓名" />
+            <EditText
+                android:id="@+id/builder_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="2"
+                android:digits="1234567890"
+                android:ems="10"
+                android:hint="年龄"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/builder_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="性别" />
+            <EditText
+                android:id="@+id/builder_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="职位" />
+            <Button
+                android:id="@+id/builder_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="构建" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

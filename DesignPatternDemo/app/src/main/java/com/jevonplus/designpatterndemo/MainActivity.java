@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.jevonplus.designpatterndemo.abstractfactory.ColorFactory;
 import com.jevonplus.designpatterndemo.abstractfactory.VehicleFactory;
+import com.jevonplus.designpatterndemo.builder.Employee;
 import com.jevonplus.designpatterndemo.singleton.ColorFactoryManager;
 import com.jevonplus.designpatterndemo.singleton.VehicleFactoryManager;
 
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     //Singleton
     private EditText mSingletonId, mSingletonName, mSingletonAge, mSingletonSex;
     private Button mSingletonAppoint, mSingletonQuery;
+
+    //Builder
+    private EditText mBuilderId, mBuilderName, mBuilderAge, mBuilderSex, mBuilderPosition;
+    private Button mBuilderCreate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
         mSingletonAppoint.setOnClickListener(mSingletonAppointListener);
         mSingletonQuery = (Button)findViewById(R.id.singleton_query);
         mSingletonQuery.setOnClickListener(mSingletonQueryListener);
+        //Builder
+        mBuilderId = (EditText)findViewById(R.id.builder_id);
+        mBuilderName = (EditText)findViewById(R.id.builder_name);
+        mBuilderAge = (EditText)findViewById(R.id.builder_age);
+        mBuilderSex = (EditText)findViewById(R.id.builder_sex);
+        mBuilderPosition = (EditText)findViewById(R.id.builder_position);
+        mBuilderCreate = (Button)findViewById(R.id.builder_create);
+        mBuilderCreate.setOnClickListener(mBudilerCreateListener);
     }
 
     @Override
@@ -188,6 +201,33 @@ public class MainActivity extends AppCompatActivity {
                 sb.append(",性别");
                 sb.append(VehicleFactoryManager.getInstance().getSex());
             }
+            Toast.makeText(MainActivity.this,sb.toString(),Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    //Builder
+    View.OnClickListener mBudilerCreateListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Employee ee = new Employee.Builder()
+                    .setName(mBuilderName.getText().toString())
+                    .setAge(Integer.parseInt(mBuilderAge.getText().toString()))
+                    .setSex(mBuilderSex.getText().toString())
+                    .setPosition(mBuilderPosition.getText().toString())
+                    .setDepartment(Integer.parseInt(mBuilderId.getText().toString()))
+                    .build();
+            StringBuffer sb = new StringBuffer();
+            int i = ee.getDepartment();
+            if(i == 1){
+                sb.append("车辆厂");
+            } else if(i == 2) {
+                sb.append("颜色厂");
+            }
+            sb.append(ee.getName());
+            sb.append("年龄：" + ee.getAge());
+            sb.append("性别：" + ee.getSex());
+            sb.append("职位：" + ee.getPosition());
             Toast.makeText(MainActivity.this,sb.toString(),Toast.LENGTH_SHORT).show();
         }
     };
