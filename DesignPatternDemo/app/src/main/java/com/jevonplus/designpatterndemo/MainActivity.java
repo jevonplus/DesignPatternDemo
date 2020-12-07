@@ -210,12 +210,26 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            int age = -1;
+            int department = 1;
+            if((mBuilderAge.getText().toString() == null) ||
+                    mBuilderAge.getText().toString().equals("")) {
+                age = 30;
+            } else {
+                age = Integer.parseInt(mBuilderAge.getText().toString());
+            }
+            if((mBuilderId.getText().toString() == null) ||
+                    mBuilderId.getText().toString().equals("")) {
+                department = 1;
+            } else {
+                department = Integer.parseInt(mBuilderId.getText().toString());
+            }
             Employee ee = new Employee.Builder()
                     .setName(mBuilderName.getText().toString())
-                    .setAge(Integer.parseInt(mBuilderAge.getText().toString()))
+                    .setAge(age)
                     .setSex(mBuilderSex.getText().toString())
                     .setPosition(mBuilderPosition.getText().toString())
-                    .setDepartment(Integer.parseInt(mBuilderId.getText().toString()))
+                    .setDepartment(department)
                     .build();
             StringBuffer sb = new StringBuffer();
             int i = ee.getDepartment();

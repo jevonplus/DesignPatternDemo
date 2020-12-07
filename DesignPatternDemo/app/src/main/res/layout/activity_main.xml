@@ -105,7 +105,7 @@
                 android:maxLength="1"
                 android:digits="12"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:hint="厂号" />
             <EditText
                 android:id="@+id/singleton_name"
@@ -171,7 +171,7 @@
                 android:maxLength="1"
                 android:digits="12"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:hint="厂号" />
             <EditText
                 android:id="@+id/builder_name"

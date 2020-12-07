@@ -66,6 +66,9 @@ public class Employee extends Person {
         }
 
         public Builder setName(String name) {
+            if(name == null || name.equals("")) {
+                return this;
+            }
             mName = name;
             return this;
         }
@@ -74,10 +77,16 @@ public class Employee extends Person {
             return this;
         }
         public Builder setSex(String sex) {
+            if(sex == null || sex.equals("")) {
+                return this;
+            }
             mSex = sex;
             return this;
         }
         public Builder setPosition(String position){
+            if(position == null || position.equals("")) {
+                return  this;
+            }
             mPosition = position;
             return this;
         }
