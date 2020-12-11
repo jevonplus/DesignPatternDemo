@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.jevonplus.designpatterndemo.abstractfactory.ColorFactory;
@@ -23,21 +24,26 @@ import com.jevonplus.designpatterndemo.singleton.VehicleFactoryManager;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
     private static final String TAG = "MainActivity";
     private DesignService mDesignService;
     private static final int VEHICLE_FACTORY = 1;
     private static final int COLOR_FACTORY = 2;
     //Factory Method
     private Button mFactoryMethod;
-    private EditText mFactoryMethodEdit;
+    private RadioGroup mFactoryGroup;
+    private int mVehicleType = -1;
+
     //Abstract Factory
-    private EditText mAbsFactoryColorEdit,mAsbFactoryVehicleEdit;
+    private RadioGroup mFactoryVehicleGroup,mFactoryColorGroup;
     private Button mAbsFactory;
+    private int mColorType = -1;
 
     //Singleton
-    private EditText mSingletonId, mSingletonName, mSingletonAge, mSingletonSex;
+    private EditText mSingletonName, mSingletonAge;
+    private RadioGroup mSingletonId,mSingletonSex;
     private Button mSingletonAppoint, mSingletonQuery;
+    private int mSignletonFactoryId,mSignletonSex;
 
     //Builder
     private EditText mBuilderId, mBuilderName, mBuilderAge, mBuilderSex, mBuilderPosition;
@@ -56,18 +62,21 @@ public class MainActivity extends AppCompatActivity {
         this.bindService(intent, mServiceConn, Context.BIND_AUTO_CREATE);
         //Factory Method
         mFactoryMethod = (Button)findViewById(R.id.custom_btn);
-        mFactoryMethodEdit = (EditText)findViewById(R.id.custom_type_edit);
         mFactoryMethod.setOnClickListener(mFactoryMethodListener);
+        mFactoryGroup = (RadioGroup) findViewById(R.id.factory_method_group);
+        mFactoryGroup.setOnCheckedChangeListener(this);
         //Abstract Factory
-        mAbsFactoryColorEdit = (EditText)findViewById(R.id.color_edit) ;
-        mAsbFactoryVehicleEdit = (EditText)findViewById(R.id.vehicle_edit);
+        mFactoryVehicleGroup = (RadioGroup)findViewById(R.id.abstract_factory_vehicle_group);
+        mFactoryVehicleGroup.setOnCheckedChangeListener(this);
+        mFactoryColorGroup = (RadioGroup)findViewById(R.id.abstract_factory_color_group);
+        mFactoryColorGroup.setOnCheckedChangeListener(this);
         mAbsFactory = (Button)findViewById(R.id.absfactory_btn);
         mAbsFactory.setOnClickListener(mAbsFactoryListener);
         //Singleton
-        mSingletonId = (EditText)findViewById(R.id.singleton_id);
+        mSingletonId = (RadioGroup)findViewById(R.id.singleton_id_group);
         mSingletonName = (EditText)findViewById(R.id.singleton_name);
         mSingletonAge = (EditText)findViewById(R.id.singleton_age);
-        mSingletonSex = (EditText)findViewById(R.id.singleton_sex);
+        mSingletonSex = (RadioGroup)findViewById(R.id.singleton_sex_group);
         mSingletonAppoint = (Button)findViewById(R.id.singleton_appoint);
         mSingletonAppoint.setOnClickListener(mSingletonAppointListener);
         mSingletonQuery = (Button)findViewById(R.id.singleton_query);
@@ -80,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         mBuilderPosition = (EditText)findViewById(R.id.builder_position);
         mBuilderCreate = (Button)findViewById(R.id.builder_create);
         mBuilderCreate.setOnClickListener(mBudilerCreateListener);
-
         //Prototype
         mPrototypeQuery = (Button)findViewById(R.id.prototype_btn);
         mPrototypeQuery.setOnClickListener(mPrototypeQueryListener);
@@ -111,13 +119,11 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener mFactoryMethodListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int type = Integer.parseInt(mFactoryMethodEdit.getText().toString());
-            Log.d(TAG, "mFactoryMethod type = " + type + " mDesignService = " + mDesignService);
             String custom;
-            if(mDesignService.customVehicleToFactory(type) == null){
+            if(mDesignService.customVehicleToFactory(mVehicleType) == null){
                 custom = "No this style Vehicle";
             } else {
-                custom = mDesignService.customVehicleToFactory(type).produce();
+                custom = mDesignService.customVehicleToFactory(mVehicleType).produce();
             }
             Toast.makeText(MainActivity.this,custom,Toast.LENGTH_SHORT).show();
         }
@@ -127,30 +133,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             StringBuffer sb = new StringBuffer();
-            int colortType = -1;
-            int vehicleType = -1;
-            try {
-                colortType = Integer.parseInt(mAbsFactoryColorEdit.getText().toString());
-            }catch (Exception e) {
-                colortType = 1;
-            }
-
-            Log.d(TAG, "mAbsFactoryListener colortType = " + colortType);
-            if(colortType > 0){
+            Log.d(TAG, "mAbsFactoryListener mColorType = " + mColorType);
+            if(mColorType > 0){
                 ColorFactory factory = (ColorFactory)mDesignService.getFactory(COLOR_FACTORY);
-                sb.append(factory.getColor(colortType).fill());
+                sb.append(factory.getColor(mColorType).fill());
             }
 
-            try {
-                vehicleType = Integer.parseInt(mAsbFactoryVehicleEdit.getText().toString());
-            }catch (Exception e) {
-                vehicleType = 1;
-            }
-
-            Log.d(TAG, "mAbsFactoryListener vehicleType = " + vehicleType);
-            if(vehicleType > 0){
+            Log.d(TAG, "mAbsFactoryListener vehicleType = " + mVehicleType);
+            if(mVehicleType > 0){
                 VehicleFactory factory = (VehicleFactory)mDesignService.getFactory(VEHICLE_FACTORY);
-                sb.append(factory.getVehicle(vehicleType).produce());
+                sb.append(factory.getVehicle(mVehicleType).produce());
             }
 
             if(sb.length() == 0) {
@@ -164,28 +156,32 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener mSingletonAppointListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int id = -1;
             String name = null;
-            String sex = "女";
             int age;
             try {
-                id = Integer.parseInt(mSingletonId.getText().toString());
                 name = mSingletonName.getText().toString();
                 age = Integer.parseInt(mSingletonAge.getText().toString());
-                sex = mSingletonSex.getText().toString();
             }catch (Exception e) {
-                id = 1;
+                mSignletonFactoryId = 1;
                 age = 30;
             }
 
-            if(id == 1) {
+            if(mSignletonFactoryId == 1) {
                 ColorFactoryManager.getInstance().setName(name);
                 ColorFactoryManager.getInstance().setAge(age);
-                ColorFactoryManager.getInstance().setSex(sex);
+                if(mSignletonSex == 1){
+                    ColorFactoryManager.getInstance().setSex("男");
+                }else {
+                    ColorFactoryManager.getInstance().setSex("女");
+                }
             } else {
-                VehicleFactoryManager.getInstance().setName(name);
-                VehicleFactoryManager.getInstance().setAge(age);
-                VehicleFactoryManager.getInstance().setSex(sex);
+                ColorFactoryManager.getInstance().setName(name);
+                ColorFactoryManager.getInstance().setAge(age);
+                if(mSignletonSex == 1){
+                    ColorFactoryManager.getInstance().setSex("男");
+                }else {
+                    ColorFactoryManager.getInstance().setSex("女");
+                }
             }
             Log.d(TAG, "set appoint finish");
             Toast.makeText(MainActivity.this,"任命完成",Toast.LENGTH_SHORT).show();
@@ -196,14 +192,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             StringBuffer sb = new StringBuffer();
-            int id = -1;
-            try {
-                id = Integer.parseInt(mSingletonId.getText().toString());
-            }catch (Exception e) {
-                id = 1;
-            }
             sb.append("我是");
-            if(id == 1) {
+            if(mSignletonFactoryId == 1) {
                 sb.append(ColorFactoryManager.getInstance().getName());
                 sb.append(",年龄");
                 sb.append(ColorFactoryManager.getInstance().getAge());
@@ -304,4 +294,44 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,sb.toString(),Toast.LENGTH_SHORT).show();
         }
     };
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId){
+            case R.id.factory_method_car_btn:
+            case R.id.abstract_factory_car_btn:
+                mVehicleType = 1;
+                break;
+            case R.id.factory_method_truck_btn:
+            case R.id.abstract_factory_truck_btn:
+                mVehicleType = 2;
+                break;
+            case R.id.factory_method_bus_btn:
+            case R.id.abstract_factory_bus_btn:
+                mVehicleType = 3;
+                break;
+            case R.id.abstract_factory_red_btn:
+                mColorType = 1;
+                break;
+            case R.id.abstract_factory_white_btn:
+                mColorType = 2;
+                break;
+            case R.id.abstract_factory_blue_btn:
+                mColorType = 3;
+                break;
+            case R.id.singleton_vehicle_btn:
+                mSignletonFactoryId = 2;
+                break;
+            case R.id.singleton_color_btn:
+                mSignletonFactoryId = 1;
+                break;
+            case R.id.singleton_man_btn:
+                mSignletonSex = 1;
+                break;
+            case R.id.singleton_women_btn:
+                mSignletonSex = 2;
+                break;
+
+        }
+    }
 }

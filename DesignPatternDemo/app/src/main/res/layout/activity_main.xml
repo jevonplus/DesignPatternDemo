@@ -24,16 +24,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/custom_type_edit"
-                android:layout_width="wrap_content"
+            <RadioGroup
+            android:id="@+id/factory_method_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/factory_method_car_btn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLength="1"
-                android:digits="123"
-                android:ems="10"
-                android:hint="请输入车辆类型：1 汽车，2 卡车，3 客场"
-                android:inputType="number" />
+                android:text="汽车" />
+            <RadioButton
+                android:id="@+id/factory_method_truck_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="卡车" />
+            <RadioButton
+                android:id="@+id/factory_method_bus_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="客车" />
+        </RadioGroup>
             <Button
                 android:id="@+id/custom_btn"
                 android:layout_width="wrap_content"
@@ -56,7 +67,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <EditText
+            <RadioGroup
+                android:id="@+id/abstract_factory_vehicle_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/abstract_factory_car_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="汽车" />
+                <RadioButton
+                    android:id="@+id/abstract_factory_truck_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="卡车" />
+                <RadioButton
+                    android:id="@+id/abstract_factory_bus_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="客车" />
+            </RadioGroup>
+            <!--<EditText
             android:id="@+id/vehicle_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,17 +97,28 @@
             android:digits="123"
             android:ems="10"
             android:hint="请输入车辆类型"
-            android:inputType="number" />
-            <EditText
-                android:id="@+id/color_edit"
+            android:inputType="number" /> -->
+            <RadioGroup
+                android:id="@+id/abstract_factory_color_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLength="1"
-                android:digits="123"
-                android:ems="10"
-                android:hint="请输入颜色类型：1 红色，2 白色，3 蓝色"
-                android:inputType="number" />
+                android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/abstract_factory_red_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="红色" />
+            <RadioButton
+                android:id="@+id/abstract_factory_white_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="白色" />
+            <RadioButton
+                android:id="@+id/abstract_factory_blue_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="蓝色" />
+            </RadioGroup>
             <Button
                 android:id="@+id/absfactory_btn"
                 android:layout_width="wrap_content"
@@ -97,16 +140,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/singleton_id"
+            <RadioGroup
+                android:id="@+id/singleton_id_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLength="1"
-                android:digits="12"
-                android:ems="10"
-                android:inputType="number"
-                android:hint="厂号" />
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/singleton_vehicle_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="车辆厂" />
+                <RadioButton
+                    android:id="@+id/singleton_color_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="喷漆厂" />
+            </RadioGroup>
             <EditText
                 android:id="@+id/singleton_name"
                 android:layout_width="wrap_content"
@@ -126,27 +175,34 @@
                 android:hint="年龄"
                 android:inputType="number" />
 
-            <EditText
-                android:id="@+id/singleton_sex"
+            <RadioGroup
+                android:id="@+id/singleton_sex_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="性别" />
-
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/singleton_man_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="男" />
+                <RadioButton
+                    android:id="@+id/singleton_women_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="女" />
+            </RadioGroup>
             <Button
                 android:id="@+id/singleton_appoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="任命" />
+                android:text="任命厂长" />
             <Button
                 android:id="@+id/singleton_query"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="查询" />
+                android:text="查询厂长" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/builder_title_ly"
