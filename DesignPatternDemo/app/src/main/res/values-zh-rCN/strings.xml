@@ -4,5 +4,6 @@
     <string name="abstract_factory">抽象工厂模式</string>
     <string name="singleton">单例模式</string>
     <string name="builder">建造者模式</string>
+    <string name="prototype">原型模式</string>
     <string name="custom_vehicle">车辆定制</string>
 </resources>

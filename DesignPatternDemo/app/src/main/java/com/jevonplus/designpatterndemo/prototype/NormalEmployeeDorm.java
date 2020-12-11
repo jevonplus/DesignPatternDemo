@@ -1,15 +1,22 @@
 package com.jevonplus.designpatterndemo.prototype;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
 public class NormalEmployeeDorm implements Cloneable {
-    private static String mName;
-    private static int mDormSize;
-    private static int mLevel;
+    private static final String TAG = "NormalEmployeeDorm";
+    private static String mName = "unknow";
+    private static int mDormSize = 100;
+    private static int mLevel = 5;
     private static ArrayList<String> mGoodsList = new ArrayList<>();
 
+    public NormalEmployeeDorm() {
+        addGoods("单人床");
+        addGoods("餐桌");
+    }
     public void setName(String name) {
         mName = name;
     }
@@ -36,12 +43,11 @@ public class NormalEmployeeDorm implements Cloneable {
     }
     @NonNull
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone()  {
         NormalEmployeeDorm ned = null;
         try{
-            super.clone();
+            ned = (NormalEmployeeDorm)super.clone();
         }catch (CloneNotSupportedException e){
-
         }
         ned.mName = this.mName;
         ned.mDormSize = this.mDormSize;

@@ -215,5 +215,42 @@
                 android:layout_weight="1"
                 android:text="构建" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/prototype_title_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/prototype_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/prototype" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/prototype_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="添置物品" />
+            <Button
+                android:id="@+id/prototype_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="标配" />
+            <Button
+                android:id="@+id/prototype_add_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="添置" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

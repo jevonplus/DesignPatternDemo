@@ -4,5 +4,6 @@
     <string name="abstract_factory">abstract factory</string>
     <string name="singleton">singleton</string>
     <string name="builder">builder</string>
+    <string name="prototype">prototype</string>
     <string name="custom_vehicle">vehicle custom</string>
 </resources>

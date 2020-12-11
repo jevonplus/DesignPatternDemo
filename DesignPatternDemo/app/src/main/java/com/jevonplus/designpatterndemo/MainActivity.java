@@ -17,8 +17,11 @@ import android.widget.Toast;
 import com.jevonplus.designpatterndemo.abstractfactory.ColorFactory;
 import com.jevonplus.designpatterndemo.abstractfactory.VehicleFactory;
 import com.jevonplus.designpatterndemo.builder.Employee;
+import com.jevonplus.designpatterndemo.prototype.NormalEmployeeDorm;
 import com.jevonplus.designpatterndemo.singleton.ColorFactoryManager;
 import com.jevonplus.designpatterndemo.singleton.VehicleFactoryManager;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -39,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     //Builder
     private EditText mBuilderId, mBuilderName, mBuilderAge, mBuilderSex, mBuilderPosition;
     private Button mBuilderCreate;
+
+    //prototypt
+    private Button mPrototypeQuery,mPrototypeAdd;
+    private EditText mPrototypeGoods;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
         mBuilderPosition = (EditText)findViewById(R.id.builder_position);
         mBuilderCreate = (Button)findViewById(R.id.builder_create);
         mBuilderCreate.setOnClickListener(mBudilerCreateListener);
+
+        //Prototype
+        mPrototypeQuery = (Button)findViewById(R.id.prototype_btn);
+        mPrototypeQuery.setOnClickListener(mPrototypeQueryListener);
+        mPrototypeAdd = (Button)findViewById(R.id.prototype_add_goods);
+        mPrototypeAdd.setOnClickListener(mPrototypeAddListener);
+        mPrototypeGoods = (EditText)findViewById(R.id.prototype_goods);
     }
 
     @Override
@@ -242,6 +257,50 @@ public class MainActivity extends AppCompatActivity {
             sb.append("年龄：" + ee.getAge());
             sb.append("性别：" + ee.getSex());
             sb.append("职位：" + ee.getPosition());
+            Toast.makeText(MainActivity.this,sb.toString(),Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    //prototype
+    View.OnClickListener mPrototypeQueryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            NormalEmployeeDorm mDorm = new NormalEmployeeDorm();
+            StringBuffer sb = new StringBuffer();
+            sb.append("姓名： ");
+            sb.append(mDorm.getName());
+            sb.append(" 级别：");
+            sb.append(mDorm.getLevel());
+            sb.append(" 宿舍面积：");
+            sb.append(mDorm.getDormSize());
+            sb.append(" 室内物品： ");
+            ArrayList<String> mList = mDorm.getGoodsList();
+            for(String goods:mList){
+                sb.append(goods + ", ");
+            }
+            Toast.makeText(MainActivity.this,sb.toString(),Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    View.OnClickListener mPrototypeAddListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            NormalEmployeeDorm mDorm = new NormalEmployeeDorm();
+            StringBuffer sb = new StringBuffer();
+            NormalEmployeeDorm mNewDorm = (NormalEmployeeDorm) mDorm.clone();
+            mNewDorm.setName("张三");
+            sb.append(mNewDorm.getName());
+            String item = mPrototypeGoods.getText().toString();
+            if(item == null || item.equals("")) {
+                sb.append("没有添加任何东西");
+            } else {
+                mNewDorm.addGoods(item);
+                sb.append("现在有");
+                ArrayList<String> mList = mDorm.getGoodsList();
+                for(String goods:mList){
+                    sb.append(goods + ", ");
+                }
+            }
             Toast.makeText(MainActivity.this,sb.toString(),Toast.LENGTH_SHORT).show();
         }
     };
