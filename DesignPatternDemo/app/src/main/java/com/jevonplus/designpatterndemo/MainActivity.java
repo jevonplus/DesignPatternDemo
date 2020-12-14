@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private int mSignletonFactoryId,mSignletonSex;
 
     //Builder
-    private EditText mBuilderId, mBuilderName, mBuilderAge, mBuilderSex, mBuilderPosition;
+    private EditText mBuilderName, mBuilderAge, mBuilderPosition;
+    private RadioGroup mBuilderId,mBuilderSex;
     private Button mBuilderCreate;
 
     //prototypt
@@ -74,18 +75,22 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mAbsFactory.setOnClickListener(mAbsFactoryListener);
         //Singleton
         mSingletonId = (RadioGroup)findViewById(R.id.singleton_id_group);
+        mSingletonId.setOnCheckedChangeListener(this);
         mSingletonName = (EditText)findViewById(R.id.singleton_name);
         mSingletonAge = (EditText)findViewById(R.id.singleton_age);
         mSingletonSex = (RadioGroup)findViewById(R.id.singleton_sex_group);
+        mSingletonSex.setOnCheckedChangeListener(this);
         mSingletonAppoint = (Button)findViewById(R.id.singleton_appoint);
         mSingletonAppoint.setOnClickListener(mSingletonAppointListener);
         mSingletonQuery = (Button)findViewById(R.id.singleton_query);
         mSingletonQuery.setOnClickListener(mSingletonQueryListener);
         //Builder
-        mBuilderId = (EditText)findViewById(R.id.builder_id);
+        mBuilderId = (RadioGroup)findViewById(R.id.builder_id_group);
+        mBuilderId.setOnCheckedChangeListener(this);
         mBuilderName = (EditText)findViewById(R.id.builder_name);
         mBuilderAge = (EditText)findViewById(R.id.builder_age);
-        mBuilderSex = (EditText)findViewById(R.id.builder_sex);
+        mBuilderSex = (RadioGroup)findViewById(R.id.builder_sex_group);
+        mBuilderSex.setOnCheckedChangeListener(this);
         mBuilderPosition = (EditText)findViewById(R.id.builder_position);
         mBuilderCreate = (Button)findViewById(R.id.builder_create);
         mBuilderCreate.setOnClickListener(mBudilerCreateListener);
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 age = Integer.parseInt(mSingletonAge.getText().toString());
             }catch (Exception e) {
                 mSignletonFactoryId = 1;
-                age = 30;
+                age = 0;
             }
 
             if(mSignletonFactoryId == 1) {
@@ -171,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 ColorFactoryManager.getInstance().setAge(age);
                 if(mSignletonSex == 1){
                     ColorFactoryManager.getInstance().setSex("男");
-                }else {
+                }else if(mSignletonSex == 2){
                     ColorFactoryManager.getInstance().setSex("女");
                 }
             } else {
@@ -179,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 ColorFactoryManager.getInstance().setAge(age);
                 if(mSignletonSex == 1){
                     ColorFactoryManager.getInstance().setSex("男");
-                }else {
+                }else if(mSignletonSex == 2){
                     ColorFactoryManager.getInstance().setSex("女");
                 }
             }
@@ -217,24 +222,24 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         public void onClick(View v) {
             int age = -1;
             int department = 1;
+            String sex = null;
             if((mBuilderAge.getText().toString() == null) ||
                     mBuilderAge.getText().toString().equals("")) {
                 age = 30;
             } else {
                 age = Integer.parseInt(mBuilderAge.getText().toString());
             }
-            if((mBuilderId.getText().toString() == null) ||
-                    mBuilderId.getText().toString().equals("")) {
-                department = 1;
-            } else {
-                department = Integer.parseInt(mBuilderId.getText().toString());
+            if(mSignletonSex == 1){
+                sex = "男";
+            }else {
+                sex = "女";
             }
             Employee ee = new Employee.Builder()
                     .setName(mBuilderName.getText().toString())
                     .setAge(age)
-                    .setSex(mBuilderSex.getText().toString())
+                    .setSex(sex)
                     .setPosition(mBuilderPosition.getText().toString())
-                    .setDepartment(department)
+                    .setDepartment(mSignletonFactoryId)
                     .build();
             StringBuffer sb = new StringBuffer();
             int i = ee.getDepartment();
@@ -256,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         @Override
         public void onClick(View v) {
             NormalEmployeeDorm mDorm = new NormalEmployeeDorm();
+            Log.d(TAG, "mPrototypeQueryListener mDorm = " + mDorm);
             StringBuffer sb = new StringBuffer();
             sb.append("姓名： ");
             sb.append(mDorm.getName());
@@ -265,6 +271,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             sb.append(mDorm.getDormSize());
             sb.append(" 室内物品： ");
             ArrayList<String> mList = mDorm.getGoodsList();
+            Log.d(TAG, "mPrototypeQueryListener mList SIZE = " + mList.size());
             for(String goods:mList){
                 sb.append(goods + ", ");
             }
@@ -278,15 +285,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             NormalEmployeeDorm mDorm = new NormalEmployeeDorm();
             StringBuffer sb = new StringBuffer();
             NormalEmployeeDorm mNewDorm = (NormalEmployeeDorm) mDorm.clone();
-            mNewDorm.setName("张三");
-            sb.append(mNewDorm.getName());
             String item = mPrototypeGoods.getText().toString();
             if(item == null || item.equals("")) {
+                sb.append(mDorm.getName());
                 sb.append("没有添加任何东西");
             } else {
+                mNewDorm.setName("张三");
+                sb.append(mNewDorm.getName());
                 mNewDorm.addGoods(item);
                 sb.append("现在有");
-                ArrayList<String> mList = mDorm.getGoodsList();
+                ArrayList<String> mList = mNewDorm.getGoodsList();
                 for(String goods:mList){
                     sb.append(goods + ", ");
                 }
@@ -320,15 +328,19 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 mColorType = 3;
                 break;
             case R.id.singleton_vehicle_btn:
+            case R.id.builder_vehicle_btn:
                 mSignletonFactoryId = 2;
                 break;
             case R.id.singleton_color_btn:
+            case R.id.builder_color_btn:
                 mSignletonFactoryId = 1;
                 break;
             case R.id.singleton_man_btn:
+            case R.id.builder_man_btn:
                 mSignletonSex = 1;
                 break;
             case R.id.singleton_women_btn:
+            case R.id.builder_women_btn:
                 mSignletonSex = 2;
                 break;
 

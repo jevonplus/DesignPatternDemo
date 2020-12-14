@@ -219,16 +219,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/builder_id"
+            <RadioGroup
+                android:id="@+id/builder_id_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLength="1"
-                android:digits="12"
-                android:ems="10"
-                android:inputType="number"
-                android:hint="厂号" />
+                android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/builder_vehicle_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="车辆厂" />
+            <RadioButton
+                android:id="@+id/builder_color_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="喷漆厂" />
+        </RadioGroup>
             <EditText
                 android:id="@+id/builder_name"
                 android:layout_width="wrap_content"
@@ -247,15 +253,22 @@
                 android:ems="10"
                 android:hint="年龄"
                 android:inputType="number" />
-
-            <EditText
-                android:id="@+id/builder_sex"
+            <RadioGroup
+                android:id="@+id/builder_sex_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="性别" />
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/builder_man_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="男" />
+                <RadioButton
+                    android:id="@+id/builder_women_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="女" />
+            </RadioGroup>
             <EditText
                 android:id="@+id/builder_position"
                 android:layout_width="wrap_content"

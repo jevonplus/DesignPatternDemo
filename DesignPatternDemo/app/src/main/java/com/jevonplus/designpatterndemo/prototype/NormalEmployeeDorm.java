@@ -11,7 +11,7 @@ public class NormalEmployeeDorm implements Cloneable {
     private static String mName = "unknow";
     private static int mDormSize = 100;
     private static int mLevel = 5;
-    private static ArrayList<String> mGoodsList = new ArrayList<>();
+    private  ArrayList<String> mGoodsList = new ArrayList<>();
 
     public NormalEmployeeDorm() {
         addGoods("单人床");

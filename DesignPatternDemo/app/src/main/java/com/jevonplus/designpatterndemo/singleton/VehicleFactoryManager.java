@@ -18,6 +18,9 @@ public class VehicleFactoryManager extends Person {
 
     @Override
     public void setName(String name) {
+        if(name == null || ("").equals(name)){
+            return;
+        }
         mName = name;
     }
 
